@@ -3,45 +3,45 @@ library(shinythemes)
 
 # defining formulas
 
-impliedodds <- function(x) {
-  if (x < 0) { odds <- abs(x) / (100 + abs(x))
+impliedodds <- function(line) {
+  if (line < 0) { odds <- abs(line) / (100 + abs(line))
   }
-  else { odds <- 100 / (100 + x)
+  else { odds <- 100 / (100 + line)
   }
   return(odds)
 }
 
-impliedprob <- function(p){
-  if(p >= 0.5){line <- (100 * p)/(p-1)}
-  else{line <- (100*(1-p)/p)}
+impliedprob <- function(prob){
+  if(prob >= 0.5){line <- (100 * prob)/(prob-1)}
+  else{line <- (100*(1-prob)/prob)}
   return(line)
 }
 
-kelly <- function(b, p) {
-  f <- (((1 / b - 1) * p - (1 - p)) / (1 / b - 1))
-  return(f)
+kelly <- function(bet_prob, real_prob) {
+  fraction <- (((1 / bet_prob - 1) * real_prob - (1 - real_prob)) / (1 / bet_prob - 1))
+  return(fraction)
 }
 
-winning <- function(x, y) {
-  if(y >= 0){payout <- x * y / 100}
-  else{payout <- x * 100 / abs(y)}
+winning <- function(wager, line) {
+  if(line >= 0){payout <- wager * line / 100}
+  else{payout <- wager * 100 / abs(line)}
   return(payout)
 }
 
 
 ### Hedge function
-hedge1 <- function(x, l, z){
-  y <- winning(x, l)
-  b <- winning(1, z)
-  a  <- (x + y) / (1+b)
-  return(a)
+hedge1 <- function(wager, line_init, line_new){
+  init_win <- winning(wager, line_init)
+  new_win <- winning(1, line_new)
+  hedge_amount  <- (wager + init_win) / (1 + new_win)
+  return(hedge_amount)
 }
 
-hedge2 <- function(x, l, z){
-  y <- winning(x, l)
-  b <- winning(1, z)
-  a <- x / b
-  return(a)
+hedge2 <- function(wager, line_init, line_new){
+  init_win <- winning(wager, line_init)
+  new_win <- winning(1, line_new)
+  hedge_amount <- wager / new_win
+  return(hedge_amount)
 }
 
 #Now the actual Shiny App

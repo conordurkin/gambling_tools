@@ -55,7 +55,7 @@ ui <- fluidPage(
 ### PAGE 1 - BET SIZING 
 
   tabsetPanel(
-    tabPanel(tags$strong("size"),
+    tabPanel(tags$strong("kelly"),
        tags$h3("optimal bet sizing"),
         tags$p("The Kelly criterion is a formula used in bet sizing intended to maximize long-term expected returns, given your expectations on 
                probability of winning a given wager. Given the inputs below, this calculator will estimate your ideal wager size using the Kelly formula."
@@ -70,11 +70,11 @@ ui <- fluidPage(
            
           ),
           column(
-           numericInput("kellyline", "What is the line you are betting?",-110),
+           numericInput("kellyline", "What line you are betting?",-110),
            width = 4
          ),
          column(
-           numericInput("kellyprob", "What chance to win do you expect (0-100)?", 50, 0, 100),
+           numericInput("kellyprob", "What actual probability are you expecting (0-100)?", 50, 0, 100),
            width = 4
          )),
        fluidRow(

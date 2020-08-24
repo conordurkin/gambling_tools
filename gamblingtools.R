@@ -143,6 +143,13 @@ tabPanel(tags$strong("hedging"),
              width = 6)        
            ))))
 
+
+
+
+
+
+
+
 server <- function(input, output) {
   
 ### KELLY CRITERION STUFF HERE
